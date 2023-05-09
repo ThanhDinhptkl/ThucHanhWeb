@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Table from API</title>
+    <link rel="stylesheet" href="./sb_admin/css/sb-admin-2.css">
+    <link rel="stylesheet" href="./sb_admin/vendor/jquery/jquery.js">
+</head>
+
+<body>
+    <table id="user-table" class="table table-bordered">
+        <thead>
+            <tr>
+                <th>username</th>
+                <th>Email</th>
+                <th>avt_link</th>
+                <th>id</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+        fetch('https://6458ce5c4eb3f674df7ddf5b.mockapi.io/users')
+            .then(response => response.json())
+            .then(data => {
+                const tableBody = document.querySelector('#user-table tbody');
+                data.forEach(user => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+						<td>${user.username}</td>
+						<td>${user.email}</td>
+						<td>${user.avatar_link}</td>
+						<td>${user.id}</td>
+					`;
+                    tableBody.appendChild(row);
+                });
+            })
+            .catch(error => console.error(error));
+    </script>
+</body>
+
+</html>
